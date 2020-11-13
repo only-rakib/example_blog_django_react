@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Footer from "./Footer";
 import Nav from "./Nav";
 class Register extends Component {
   constructor() {
@@ -13,29 +14,7 @@ class Register extends Component {
     };
   }
   register() {
-    /*axios
-      .post("http://127.0.0.1:8000/api/auth/register/", {
-        email: this.state.email,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        password: this.state.password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });*/
-    /*fetch("http://127.0.0.1:8000/api/auth/register/", {
-      method: "POST",
-      body: JSON.stringify(this.state),
-      
-    }).then((response) => {
-      response.json().then((result) => {
-        console.warn("result", result);
-        
-      });
-    });*/
+    
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -59,112 +38,115 @@ class Register extends Component {
   }
   render() {
     return (
-      <Nav></Nav>
-      <div className="container all-margin-top text-left minimum-height">
-        <h1 className="mt-4 mb-3">
-          Register
-          <small>Form</small>
-        </h1>
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item active">Register</li>
-        </ol>
+      <div>
+        <Nav/>
+        <div className="container all-margin-top text-left minimum-height">
+          <h1 className="mt-4 mb-3">
+            Register 
+            <small> Form</small>
+          </h1>
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item active">Register</li>
+          </ol>
 
-        <div className="row">
-          <div className="col-lg-4 mb-4">
-            <form name="sentMessage" id="contactForm" noValidate>
-              <div className="control-group form-group">
+          <div className="row">
+            <div className="col-lg-4 mb-4">
+              <form name="sentMessage" id="contactForm" noValidate>
+                <div className="control-group form-group">
+                  <div className="controls">
+                    <label>First Name*</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="first_name"
+                      required
+                      data-validation-required-message="Please enter your first name."
+                      onChange={(event) => {
+                        this.setState({ first_name: event.target.value });
+                      }}
+                    ></input>
+                    <p className="help-block"></p>
+                  </div>
+                </div>
                 <div className="controls">
-                  <label>First Name*</label>
+                  <label>Last Name*</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="first_name"
+                    id="last_name"
                     required
-                    data-validation-required-message="Please enter your first name."
+                    data-validation-required-message="Please enter your last name."
                     onChange={(event) => {
-                      this.setState({ first_name: event.target.value });
+                      this.setState({ last_name: event.target.value });
                     }}
                   ></input>
                   <p className="help-block"></p>
                 </div>
-              </div>
-              <div className="controls">
-                <label>Last Name*</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="last_name"
-                  required
-                  data-validation-required-message="Please enter your last name."
-                  onChange={(event) => {
-                    this.setState({ last_name: event.target.value });
-                  }}
-                ></input>
-                <p className="help-block"></p>
-              </div>
-              <div className="control-group form-group">
-                <div className="controls">
-                  <label>Email*</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    required
-                    data-validation-required-message="Please enter your email."
-                    onChange={(event) => {
-                      this.setState({ email: event.target.value });
-                    }}
-                  ></input>
-                  <p className="help-block"></p>
+                <div className="control-group form-group">
+                  <div className="controls">
+                    <label>Email*</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      required
+                      data-validation-required-message="Please enter your email."
+                      onChange={(event) => {
+                        this.setState({ email: event.target.value });
+                      }}
+                    ></input>
+                    <p className="help-block"></p>
+                  </div>
                 </div>
-              </div>
-              <div className="control-group form-group">
-                <div className="controls">
-                  <label>Password*</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    id="password"
-                    required
-                    data-validation-required-message="Please enter your password."
-                    onChange={(event) => {
-                      this.setState({ password: event.target.value });
-                    }}
-                  ></input>
+                <div className="control-group form-group">
+                  <div className="controls">
+                    <label>Password*</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      id="password"
+                      required
+                      data-validation-required-message="Please enter your password."
+                      onChange={(event) => {
+                        this.setState({ password: event.target.value });
+                      }}
+                    ></input>
+                  </div>
                 </div>
-              </div>
-              <div className="control-group form-group">
-                <div className="controls">
-                  <label>Confirm Password*</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="confirm_password"
-                    id="confirm_password"
-                    required
-                    data-validation-required-message="Please confirm your password."
-                    onChange={(event) => {
-                      this.setState({ confirm_pass: event.target.value });
-                    }}
-                  ></input>
+                <div className="control-group form-group">
+                  <div className="controls">
+                    <label>Confirm Password*</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="confirm_password"
+                      id="confirm_password"
+                      required
+                      data-validation-required-message="Please confirm your password."
+                      onChange={(event) => {
+                        this.setState({ confirm_pass: event.target.value });
+                      }}
+                    ></input>
+                  </div>
                 </div>
-              </div>
-              <div id="success"></div>
+                <div id="success"></div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  this.register();
-                }}
-                className="btn btn-primary"
-                id="login-btn"
-              >
-                Register
-              </button>
-            </form>
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.register();
+                  }}
+                  className="btn btn-primary"
+                  id="login-btn"
+                >
+                  Register
+                </button>
+              </form>
+            </div>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }

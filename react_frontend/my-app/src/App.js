@@ -3,32 +3,29 @@ import {
   Route,
   BrowserRouter as Router,
   Switch,
+  Redirect,
 } from "../../node_modules/react-router-dom";
 import Login from "./mycomponents/Login";
 import Register from "./mycomponents/Register";
-import Nav from "./mycomponents/Nav";
-import Footer from "./mycomponents/Footer";
+//import Nav from "./mycomponents/Nav";
+//import Footer from "./mycomponents/Footer";
 import PostList from "./mycomponents/PostList";
 import Post from "./mycomponents/Post";
 
-
 function App() {
-
   return (
-    
     <div className="App">
       <Router>
         <div>
-          <Nav />
           <Switch>
-          
-            <Route path="/posts" component={PostList} />
-            <Route path="/details/:data" component={Post} />
-            
-            <Route path="/auth/login" component={Login} />
-            <Route path="/auth/register" component={Register} />
+            <Route exact path="/">
+              <Redirect to="/posts" />
+            </Route>
+            <Route exact path="/posts" component={PostList} />
+            <Route exact path="/details/:data" component={Post} />
+            <Route exact path="/auth/login" component={Login} />
+            <Route exact path="/auth/register" component={Register} />
           </Switch>
-          <Footer/>
         </div>
       </Router>
     </div>
