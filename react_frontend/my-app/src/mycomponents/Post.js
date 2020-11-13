@@ -21,7 +21,7 @@ class Post extends Component {
       .then((json) => {
         this.setState({ postss: json });
       });
-    const cmntUrl = "https://jsonplaceholder.typicode.com/comments/";
+    const cmntUrl = `https://jsonplaceholder.typicode.com/posts/${this.state.id}/comments`;
     fetch(cmntUrl)
       .then((response) => response.json())
       .then((json) => {

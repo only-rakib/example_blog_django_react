@@ -25,6 +25,13 @@ class Register extends Component {
       
     };
   }
+  componentDidMount() {
+    const user = localStorage.getItem("login"); // your saved token in localstorage
+    if (user && user !== "undefined") {
+      // check for not undefined
+      this.props.history.push("/"); // now you can redirect your desired route
+    }
+  }
   registerButtonPressed() {
     if (
       this.state.first_nameError &&
