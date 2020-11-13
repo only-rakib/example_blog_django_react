@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Nav from "./Nav";
 import Footer from "./Footer";
-import { Redirect,useHistory } from "../../../node_modules/react-router-dom";
+import { Redirect } from "../../../node_modules/react-router-dom";
+import className from "../../../node_modules/classnames"
 class Login extends Component {
   constructor(prop) {
     super(prop);
@@ -12,6 +13,7 @@ class Login extends Component {
       login: false,
       store: null,
     };
+    
   }
 
   login() {
@@ -40,19 +42,15 @@ class Login extends Component {
           );
           console.log("ok");
           this.setState({ login: true });
-           this.redirectPage()
-        } else {
-          alert(result);
+           
         }
+        else{
+          alert("Username or password incorrect")
+        } 
       })
       .catch((error) => console.log("error", error));
   }
-  redirectPage=()=>
-  {
-    
-    <Redirect to="/posts" />;
-    
-  }
+  
   render() {
     return (
       <div>
@@ -75,7 +73,7 @@ class Login extends Component {
                     <label>Email*</label>
                     <input
                       type="email"
-                      className="form-control"
+                      className={className('form-control')}
                       id="email"
                       onChange={(event) => {
                         this.setState({ email: event.target.value });
@@ -109,6 +107,13 @@ class Login extends Component {
                 >
                   Login
                 </button>
+                {this.state.login?(
+                <Redirect to="/posts"/>
+                ):
+                (
+                  <div></div>
+                )
+                }
               </form>
             </div>
           </div>

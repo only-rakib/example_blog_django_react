@@ -19,20 +19,18 @@ class Nav extends Component {
   }
   storeCollector() {
     let store = JSON.parse(localStorage.getItem("login"));
-   
+
     if (store && store.login) {
       this.setState({
         email: store.email,
         login: true,
       });
     }
-    
   }
-  logout=()=>
-  {
+  logout = () => {
     localStorage.removeItem("login");
     window.location.reload();
-  }
+  };
   render() {
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -70,21 +68,24 @@ class Nav extends Component {
               </li>
               {this.state.login ? (
                 <li className="nav-item">
-                  <div onClick={this.logout} className="nav-link cursor">Logout</div>
+                  <div onClick={this.logout} className="nav-link cursor">
+                    Logout
+                  </div>
                 </li>
               ) : (
-                <li className="nav-item">
-                  <Link className="nav-link" to="/auth/login">
-                    Login
-                  </Link>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/auth/login">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/auth/register">
+                      Register
+                    </Link>
+                  </li>
+                </>
               )}
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/auth/register">
-                  Register
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

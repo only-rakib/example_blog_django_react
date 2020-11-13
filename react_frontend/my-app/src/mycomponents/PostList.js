@@ -7,6 +7,7 @@ class PostList extends Component {
     super(props);
     this.state = {
       postss: [],
+      store: JSON.parse(localStorage.getItem("login")),
     };
   }
   componentDidMount() {
@@ -17,6 +18,7 @@ class PostList extends Component {
         this.setState({ postss: json });
       });
   }
+
   render() {
     return (
       <div>
@@ -42,7 +44,7 @@ class PostList extends Component {
               <div className="card-body">
                 <div className="row">
                   <div className="col-lg-6">
-                    <Link to="/detailss">
+                    <Link to={"/details/" + pst.id}>
                       <img
                         className="img-fluid rounded"
                         src="http://placehold.it/750x300"
@@ -53,9 +55,15 @@ class PostList extends Component {
                   <div className="col-lg-6">
                     <h2 className="card-title">{pst.title}</h2>
                     <p className="card-text">{pst.body}</p>
-                    <Link to={"/details/" + pst.id} className="btn btn-primary">
-                      Read More &rarr;
-                    </Link>
+                    {this.state.store && this.state.store.login ? (
+                      <Link to={"/details/" + pst.id} className="btn btn-primary">
+                        Read More &rarr;
+                      </Link>
+                    ) : (
+                      <Link to="/auth/login" className="btn btn-primary">
+                        Read More &rarr;
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
