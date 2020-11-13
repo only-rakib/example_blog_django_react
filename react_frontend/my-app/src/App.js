@@ -11,7 +11,7 @@ import Register from "./mycomponents/Register";
 //import Footer from "./mycomponents/Footer";
 import PostList from "./mycomponents/PostList";
 import Post from "./mycomponents/Post";
-
+import Protected from "./mycomponents/Protected";
 function App() {
   return (
     <div className="App">
@@ -22,7 +22,7 @@ function App() {
               <Redirect to="/posts" />
             </Route>
             <Route exact path="/posts" component={PostList} />
-            <Route exact path="/details/:data" component={Post} />
+            <Protected exact path="/details/:data" component={Post} />
             <Route exact path="/auth/login" component={Login} />
             <Route exact path="/auth/register" component={Register} />
           </Switch>

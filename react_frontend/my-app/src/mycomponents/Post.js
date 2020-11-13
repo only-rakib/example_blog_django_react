@@ -9,9 +9,11 @@ class Post extends Component {
       id: match.params.data,
       postss: [],
       comments: [],
+      store: JSON.parse(localStorage.getItem("login")),
     };
   }
   componentDidMount() {
+    
     const apiUrl =
       "https://jsonplaceholder.typicode.com/posts/" + this.state.id;
     fetch(apiUrl)

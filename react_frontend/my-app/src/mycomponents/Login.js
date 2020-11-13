@@ -3,7 +3,7 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { Redirect } from "../../../node_modules/react-router-dom";
-import className from "../../../node_modules/classnames"
+import className from "../../../node_modules/classnames";
 class Login extends Component {
   constructor(prop) {
     super(prop);
@@ -12,10 +12,48 @@ class Login extends Component {
       password: null,
       login: false,
       store: null,
+      passwordError: true,
+      emailError: true,
+      emailMgs: "",
+      passMgs: "",
     };
-    
   }
-
+  componentDidMount() {
+    const user = localStorage.getItem("login"); // your saved token in localstorage
+    if (user && user !== "undefined") {
+      // check for not undefined
+      this.props.history.push("/"); // now you can redirect your desired route
+    }
+  }
+  onChangeHandler = (event) => {
+    var inputName = event.target.name;
+    var inputValue = event.target.value;
+    this.setState({
+      [inputName]: inputValue,
+    });
+    if (inputName === "email") {
+      if (!this.emailValidation(inputValue)) {
+        this.setState({
+          emailMgs: "* Invalid Email",
+          emailError: false,
+        });
+      } else {
+        this.setState({
+          emailMgs: "",
+          emailError: true,
+        });
+      }
+    }
+  };
+  loginButtonPressed() {
+    if (this.state.emailError) {
+      this.login();
+    }
+  }
+  emailValidation(email) {
+    const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    return re.test(String(email).toLowerCase());
+  }
   login() {
     var formdata = new FormData();
     formdata.append("email", this.state.email);
@@ -42,19 +80,17 @@ class Login extends Component {
           );
           console.log("ok");
           this.setState({ login: true });
-           
+        } else {
+          alert("Username or password incorrect");
         }
-        else{
-          alert("Username or password incorrect")
-        } 
       })
       .catch((error) => console.log("error", error));
   }
-  
+
   render() {
     return (
       <div>
-        <Nav/>
+        <Nav />
         <div className="container all-margin-top minimum-height">
           <div className="mt-5"></div>
           <h1 className="mt-5 mb-3 text-left">
@@ -73,13 +109,17 @@ class Login extends Component {
                     <label>Email*</label>
                     <input
                       type="email"
-                      className={className('form-control')}
+                      className={className(
+                        "form-control",
+                        !this.state.emailError && "is-invalid"
+                      )}
                       id="email"
-                      onChange={(event) => {
-                        this.setState({ email: event.target.value });
-                      }}
+                      name="email"
+                      onChange={this.onChangeHandler}
                     ></input>
-                    <p className="help-block"></p>
+                    <small className="invalid_input">
+                      {this.state.emailMgs}
+                    </small>
                   </div>
                 </div>
                 <div className="control-group form-group">
@@ -89,9 +129,8 @@ class Login extends Component {
                       type="password"
                       className="form-control"
                       id="password"
-                      onChange={(event) => {
-                        this.setState({ password: event.target.value });
-                      }}
+                      name="password"
+                      onChange={this.onChangeHandler}
                     ></input>
                   </div>
                 </div>
@@ -100,25 +139,19 @@ class Login extends Component {
                 <button
                   type="button"
                   onClick={() => {
-                    this.login();
+                    this.loginButtonPressed();
                   }}
                   className="btn btn-primary"
                   id="login-btn"
                 >
                   Login
                 </button>
-                {this.state.login?(
-                <Redirect to="/posts"/>
-                ):
-                (
-                  <div></div>
-                )
-                }
+                {this.state.login ? <Redirect to="/posts" /> : <div></div>}
               </form>
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { Link } from "../../../node_modules/react-router-dom";
+import ReactPaginate from '../../../node_modules/react-paginate';
 class PostList extends Component {
   constructor(props) {
     super(props);
