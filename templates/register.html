@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<!-- Page Content -->
+<div class="container" style="min-height: 80vh;">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Register
+        <small>Form</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Register</li>
+    </ol>
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            {% csrf_token %}
+            <form name="sentMessage" method="POST" id="contactForm" validate
+                oninput='pass2.setCustomValidity(pass1.value != pass2.value ? "Passwords do not match." : "")'>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>First Name*</label>
+                        <input type="text" class="form-control" name="first_name" id="first_name" required
+                            data-validation-required-message="Please enter your first name.">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="controls">
+                    <label>Last Name*</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" required
+                        data-validation-required-message="Please enter your last name.">
+                    <p class="help-block"></p>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Email*</label>
+                        <input type="email" class="form-control" name="email" id="email" required
+                            data-validation-required-message="Please enter your email.">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Password*</label>
+                        <input type="password" class="form-control" id="password" required
+                            data-validation-required-message="Please enter your password." name="pass1">
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Confirm Password*</label>
+                        <input type="password" class="form-control" id="confirm-password" required
+                            data-validation-required-message="Please confirm your password." name="pass2">
+                    </div>
+                </div>
+                {% if x.mgs == 'success' %}
+                <div id="success" class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>Registration Success</strong>
+                </div>
+                {% elif x.mgs == 'failed' %}
+                <div id="success" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>{{x.error}}</strong>
+                </div>
+                {% endif %}
+                <!-- For success/fail messages -->
+                <button type="submit" class="btn btn-primary" id="login-btn">Register</button>
+            </form>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+<!--
+<script>
+    let the_post;
+
+    $('#contactForm').on('submit', function (event) {
+        event.preventDefault();
+        //console.log("form submitted!")  // sanity check
+        the_post = {
+            'first_name': $('#first_name').val(),
+            'last_name': $('#last_name').val(),
+            'email': $('#email').val(),
+            'pass2': $('#confirm-password').val(),
+        };
+        
+        create_post();
+    });
+    function create_post() {
+        console.log("create post is working!");
+        console.log("asadasd",the_post); // sanity check
+        $.ajax({
+            
+            url: "{% url 'register'%}", // the endpoint
+            type: "POST", // http method
+            dataType: 'json',
+            data: {
+                'val':JSON.stringify(the_post),
+                }, // data sent with the post request
+
+            // handle a successful response
+            success: function(response) {
+                $('#contactForm').find("input[type=text], textarea,input[type=password],input[type=email]").val("");
+                
+                $('#success').removeClass('alert-danger')
+                $('#success').addClass('alert-success')
+                $('#mgs').text("Success")
+                //window.location.replace("{% url 'posts:post_home' %}");
+                console.log("success"); // another sanity check
+            },
+
+            // handle a non-successful response
+            error: function (xhr, errmsg, err) {
+                $('#success').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                //console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
+</script>
+-->
+{% endblock container %}
